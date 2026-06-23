@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 /* Geist Sans for UI text, Geist Mono reserved for tx IDs / table numbers --
-   deliberately not Inter, which is the default every AI-generated UI reaches
-   for. Only the weights actually used in the type scale are loaded. */
+   a more distinctive typeface pairing than the usual default, for a more
+   refined look. Only the weights actually used in the type scale are loaded. */
 @import "@fontsource/geist-sans/400.css";
 @import "@fontsource/geist-sans/500.css";
 @import "@fontsource/geist-sans/600.css";

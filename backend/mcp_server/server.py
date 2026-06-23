@@ -1,6 +1,5 @@
-"""Phase C: exposes RiftRace's capabilities as MCP tools, so an external AI
-assistant (Claude Desktop, etc.) can call them directly instead of going
-through the FastAPI HTTP API.
+"""Phase C: exposes RiftRace's capabilities as MCP tools, so an MCP-compatible
+client can call them directly instead of going through the FastAPI HTTP API.
 
 Completely separate process from api/main.py -- this file is never imported
 by the FastAPI app, and nothing here is imported by it either. It reuses the
@@ -10,9 +9,9 @@ already validates against, so a tool's output shape is guaranteed to match
 its HTTP equivalent without duplicating any prediction/graph/LLM logic.
 
 Run with: cd backend && python -m mcp_server.server
-(stdio transport -- the right choice for a locally-spawned subprocess like
-Claude Desktop launches, as opposed to sse/streamable-http for a networked
-server.)
+(stdio transport -- the right choice for a locally-spawned subprocess, as
+opposed to sse/streamable-http for a networked server, since MCP clients
+typically launch local servers this way.)
 """
 
 from mcp.server.fastmcp import FastMCP
