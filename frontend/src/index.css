@@ -1,0 +1,53 @@
+@import "tailwindcss";
+
+/* Geist Sans for UI text, Geist Mono reserved for tx IDs / table numbers --
+   deliberately not Inter, which is the default every AI-generated UI reaches
+   for. Only the weights actually used in the type scale are loaded. */
+@import "@fontsource/geist-sans/400.css";
+@import "@fontsource/geist-sans/500.css";
+@import "@fontsource/geist-sans/600.css";
+@import "@fontsource/geist-sans/700.css";
+@import "@fontsource/geist-mono/400.css";
+@import "@fontsource/geist-mono/500.css";
+@import "@fontsource/geist-mono/600.css";
+
+/* One muted accent color, used sparingly for interactive/selected states
+   only; risk severity stays on red/amber/emerald/neutral so color always
+   carries one specific meaning. */
+@theme {
+  --color-accent: #565a86;
+  --color-accent-hover: #6a6ea0;
+  --font-sans: 'Geist Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', ui-monospace, monospace;
+}
+
+body {
+  margin: 0;
+}
+
+/* Card surface for top-level sections: a faint top sheen + soft downward
+   shadow give them a layer above the page background instead of sitting
+   flush with it (the page itself is a shade darker, see App.jsx). */
+@layer components {
+  .panel {
+    @apply relative rounded-lg border border-neutral-800 bg-neutral-900 bg-gradient-to-b from-white/[0.025] to-transparent shadow-[0_12px_24px_-16px_rgba(0,0,0,0.65)];
+  }
+  .tile {
+    @apply rounded-md border border-neutral-800 bg-neutral-800/40;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: #404040;
+  border-radius: 2px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #525252;
+}

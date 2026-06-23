@@ -1,0 +1,87 @@
+[
+  {
+    "id": "layering-rapid-flow",
+    "title": "Layering via rapid in-out flows",
+    "text": "Layering is the practice of moving funds through a long sequence of transactions in quick succession to obscure their origin. A wallet that receives funds and forwards nearly the same amount onward within minutes or hours, repeated across several hops, is a classic layering signature because it adds transactional distance from the source without genuine economic purpose."
+  },
+  {
+    "id": "peeling-chain",
+    "title": "Peeling chains",
+    "text": "A peeling chain is a sequence of transactions where a large input is split at each hop into a small 'peeled off' amount sent to a new address while the bulk of the remaining value continues to the next address in the chain. This pattern is commonly used to slowly distribute funds to many cash-out points while keeping most of the value moving until it is needed."
+  },
+  {
+    "id": "mixing-tumbling",
+    "title": "Mixing and tumbling services",
+    "text": "Mixing (or tumbling) services pool deposits from many unrelated users and redistribute equivalent amounts back out from a shared pool, deliberately breaking the on-chain link between a transaction's input and output addresses. Transactions touching addresses associated with known mixing services are a strong indicator of deliberate provenance obfuscation."
+  },
+  {
+    "id": "fan-out-smurfing",
+    "title": "High fan-out (structuring/smurfing)",
+    "text": "Structuring, also called smurfing, splits a large sum into many smaller transactions sent to numerous distinct addresses, often to stay under reporting or monitoring thresholds at exchanges. A single address with an unusually high number of outgoing edges to otherwise unrelated addresses, each carrying a similar small amount, is a common fan-out structuring pattern."
+  },
+  {
+    "id": "fan-in-aggregation",
+    "title": "High fan-in (consolidation)",
+    "text": "The mirror of structuring is consolidation: many small inflows from disparate addresses converging into a single address before being moved onward as one larger sum. This is frequently seen when proceeds collected from multiple small scams, ransomware victims, or drug sales are aggregated before being laundered or cashed out."
+  },
+  {
+    "id": "dormant-then-burst",
+    "title": "Dormant-then-burst activity",
+    "text": "Addresses that hold funds untouched for a long period and then suddenly become highly active, moving funds through several hops in a short window, can indicate that illicit proceeds were deliberately held to let initial suspicion cool off ('cooling period') before laundering began."
+  },
+  {
+    "id": "chain-hopping",
+    "title": "Chain-hopping and cross-chain swaps",
+    "text": "Chain-hopping moves value from Bitcoin into another cryptocurrency or back, typically through swap services or decentralized exchanges, to break the continuity of on-chain analysis tools that only trace a single blockchain. Frequent, otherwise-unmotivated swaps shortly after receiving funds are associated with this evasion technique."
+  },
+  {
+    "id": "darknet-market-exposure",
+    "title": "Darknet market exposure",
+    "text": "Transactions that connect, even indirectly through a small number of hops, to addresses clustered with known darknet marketplaces are flagged because such marketplaces predominantly handle proceeds of illegal goods and services. Proximity in the transaction graph to these clusters raises the likelihood that funds share that origin."
+  },
+  {
+    "id": "ransomware-consolidation",
+    "title": "Ransomware proceeds consolidation",
+    "text": "Ransomware operators typically receive payments at many distinct victim-specific addresses and then consolidate them into a smaller set of addresses they control before laundering. A node receiving inbound funds from numerous addresses with no other transaction history, followed by consolidation, matches this known ransomware cash-collection pattern."
+  },
+  {
+    "id": "exchange-cashout-clustering",
+    "title": "Exchange cash-out clustering",
+    "text": "Illicit funds are frequently routed toward addresses controlled by exchanges -- including exchanges with weak or no identity verification -- as a final step before conversion to fiat currency. A transaction's final hops trending toward a known exchange-deposit cluster is consistent with an active cash-out attempt."
+  },
+  {
+    "id": "co-spend-clustering",
+    "title": "Co-spend (common-input-ownership) heuristic",
+    "text": "When multiple input addresses are spent together in a single transaction, they are very likely controlled by the same entity, since spending requires the private keys for all inputs. This co-spend heuristic is a foundational technique for clustering addresses into wallets and revealing the true scale of an entity's on-chain footprint."
+  },
+  {
+    "id": "address-reuse-avoidance",
+    "title": "Deliberate address reuse avoidance",
+    "text": "Generating a fresh, never-before-used address for nearly every transaction is standard wallet hygiene, but in combination with other risk signals -- such as rapid forwarding or links to flagged clusters -- a strict pattern of single-use addresses each forwarding funds onward suggests deliberate evasion of address-based tracking rather than ordinary privacy practice."
+  },
+  {
+    "id": "round-number-amounts",
+    "title": "Round-number and threshold-avoiding amounts",
+    "text": "Transferring suspiciously round amounts, or amounts just below common regulatory or exchange reporting thresholds, repeated across multiple transactions, is a pattern associated with structuring intended to avoid triggering automated compliance alerts."
+  },
+  {
+    "id": "circular-self-transfer",
+    "title": "Circular flows and self-transfers",
+    "text": "Funds that move through a loop of addresses and return close to their starting point, with no external counterparty benefiting, can be used to manufacture a longer, more complex-looking transaction history to mislead manual reviewers or simple graph-distance heuristics into treating the funds as 'further' from their origin than they actually are."
+  },
+  {
+    "id": "sanctioned-address-link",
+    "title": "Direct or indirect ties to sanctioned addresses",
+    "text": "A transaction graph path connecting to addresses that have been formally sanctioned or attributed to designated illicit actors (e.g. state-linked hacking groups) is one of the strongest available risk indicators, since these addresses have already been confirmed as illicit by external investigation rather than inferred from behavior alone."
+  },
+  {
+    "id": "high-graph-connectivity",
+    "title": "High overall graph connectivity",
+    "text": "Nodes with an unusually large number of connected transactions relative to typical wallet behavior often function as hubs -- such as mixing services, gambling platforms, or large aggregators -- and warrant closer scrutiny because a single compromised or illicit hub can be the common link across many seemingly unrelated risky transactions."
+  },
+  {
+    "id": "low-connectivity-context",
+    "title": "Low connectivity as limited context",
+    "text": "A transaction with very few connected transactions in the available graph does not by itself indicate low risk -- it simply means there is limited structural context to corroborate or refute the model's prediction, so other signals (the transaction's own features and any directly known counterparties) carry relatively more weight in that case."
+  }
+]

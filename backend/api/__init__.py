@@ -1,0 +1,1 @@
+"""RiftRace FastAPI application package."""

@@ -1,0 +1,36 @@
+# Python
+venv/
+backend/venv/
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/node_modules/
+
+# Env
+.env
+.env.*
+
+# Editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# --- Training/eval artifacts -----------------------------------------------
+# Never loaded by the running API (see api/services/*.py REQUIRED_FILES for
+# what actually is). Named explicitly rather than ignoring whole data/model
+# directories, since most files in those directories ARE required at
+# runtime -- a blanket directory rule here would silently exclude them too.
+backend/data/raw/elliptic_txs_features.csv
+backend/data/processed/gnn_data.pt
+backend/data/processed/train.csv
+backend/models/saved/xgboost.joblib
+backend/models/saved/gcn.pt
+backend/models/saved/graphsage.pt
+backend/models/saved/logistic_regression.joblib
+backend/models/saved/random_forest_calibrated.joblib
+backend/models/saved/random_forest_uncalibrated_backup.joblib
