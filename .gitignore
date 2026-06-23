@@ -20,6 +20,9 @@ frontend/node_modules/
 .DS_Store
 Thumbs.db
 
+# Claude Code local session/runtime state (not project source)
+.claude/
+
 # --- Training/eval artifacts -----------------------------------------------
 # Never loaded by the running API (see api/services/*.py REQUIRED_FILES for
 # what actually is). Named explicitly rather than ignoring whole data/model
