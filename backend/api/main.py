@@ -92,13 +92,18 @@ class RequestLoggingMiddleware:
             logger.info(f'{scope["method"]} {scope["path"]} -> {status_code} ({duration_ms:.1f}ms)')
 
 
-# Allow the React dev server to call this API directly from the browser.
+# Allow the React dev server and the deployed Vercel frontend to call this
+# API directly from the browser. allow_origin_regex covers Vercel's
+# per-branch/per-PR preview URLs (riftrace-<hash>-<team>.vercel.app), which
+# change on every deploy, so they can't be listed individually.
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
         "http://localhost:3000",  # Create React App default
         "http://localhost:5173",  # Vite default
+        "https://riftrace.vercel.app",  # Vercel production deployment
     ],
+    allow_origin_regex=r"https://riftrace-[a-zA-Z0-9-]+\.vercel\.app",
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
