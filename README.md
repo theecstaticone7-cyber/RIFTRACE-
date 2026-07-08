@@ -14,7 +14,7 @@ Illicit Bitcoin transaction detection on the real-world Elliptic dataset, combin
 
 ## Key Features
 
-- **Hybrid detection system**: a classical Random Forest classifier (F1 ≈ 0.81, ROC-AUC ≈ 0.94 on a temporal held-out test split) handles the actual illicit/licit prediction, while a Gen AI layer sits on top for retrieval, orchestration, and natural-language explanation — the model never depends on the LLM to produce a verdict.
+- **Hybrid detection system**: a classical Random Forest classifier (F1 = 0.787, ROC-AUC = 0.929 on a temporal held-out test split) handles the actual illicit/licit prediction, while a Gen AI layer sits on top for retrieval, orchestration, and natural-language explanation — the model never depends on the LLM to produce a verdict.
 - **Retrieval-grounded explanations**: risk assessments are grounded in a small curated knowledge base of real AML (anti-money-laundering) typologies, not free-floating LLM speculation.
 - **Multi-agent investigation reports**: a LangGraph state machine chains deterministic analysis with LLM reasoning steps to produce a structured investigator-style report per transaction.
 - **Transaction graph exploration**: look up any transaction's directly connected neighbors and their known class, to see the surrounding money-flow context.
@@ -55,7 +55,17 @@ The [Elliptic dataset](https://www.kaggle.com/datasets/ellipticco/elliptic-data-
 
 ## Notable Finding: GNN Underperformance
 
-Two graph neural networks (GCN and GraphSAGE) were trained and evaluated on the same temporal split alongside the classical baselines. Both underperformed the Random Forest baseline on the illicit-class F1/ROC-AUC metrics — consistent with published findings on the Elliptic dataset showing GNN performance degrading under temporal drift (the graph's structure and feature distributions shift across time steps in ways that hurt models relying heavily on neighborhood aggregation, more than they hurt a feature-based classifier). This is why the Random Forest, not a GNN, is the model actually served in production.
+Two graph neural networks (GCN and GraphSAGE) were trained and evaluated on the same temporal split alongside the classical baselines. Both underperformed the Random Forest baseline on the illicit-class F1/ROC-AUC metrics:
+
+| Model | F1 (illicit) | ROC-AUC |
+|---|---|---|
+| Random Forest (served) | 0.787 | 0.929 |
+| GraphSAGE | 0.599 | 0.880 |
+| GCN | 0.558 | 0.864 |
+
+This is consistent with published findings on the Elliptic dataset showing GNN performance degrading under temporal drift: the graph's structure and feature distributions shift across time steps in ways that hurt models relying heavily on neighborhood aggregation, more than they hurt a feature-based classifier. This is why the Random Forest, not a GNN, is the model actually served in production.
+
+Full precision/recall/F1/ROC-AUC/accuracy for all five trained models (including Logistic Regression and XGBoost) are in [`results/model_comparison.md`](results/model_comparison.md), reproducible by running `python backend/models/evaluate.py`.
 
 ## Local Setup
 
