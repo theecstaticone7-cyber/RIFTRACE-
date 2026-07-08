@@ -67,6 +67,20 @@ This is consistent with published findings on the Elliptic dataset showing GNN p
 
 Full precision/recall/F1/ROC-AUC/accuracy for all five trained models (including Logistic Regression and XGBoost) are in [`results/model_comparison.md`](results/model_comparison.md), reproducible by running `python backend/models/evaluate.py`.
 
+## Data Scope & Path to Live Data
+
+RiftRace currently operates on the Elliptic dataset — a real but historical, anonymized snapshot of Bitcoin transactions (49 time steps). It does not ingest live blockchain data. This is a deliberate scope decision: the Elliptic dataset is the standard public benchmark with ground-truth illicit/licit labels, which makes model evaluation rigorous and reproducible.
+
+Extending to live transactions would require:
+
+1. **Ingestion**: streaming new transactions from a Bitcoin node or a blockchain API (e.g. mempool/block data) instead of the static feature store.
+2. **Feature engineering**: recomputing the 166 Elliptic-style features (local + aggregate graph features) for incoming transactions in near real time — the hardest part, since some aggregate features depend on neighborhood data that arrives incrementally.
+3. **Graph updates**: maintaining an incrementally growing transaction graph rather than a fixed one.
+4. **Inference**: the served Random Forest already scores a feature vector in milliseconds, so the model itself needs no change — the bottleneck is feature availability, not prediction.
+5. **Label scarcity**: live data has no ground-truth labels, so monitoring would rely on drift detection and periodic re-validation rather than direct accuracy measurement.
+
+The architecture anticipates this: feature retrieval already lives behind its own service module (`api/services/feature_store.py`) with a single `get_feature_vector(tx_id)` entry point that `model_service.py` calls — no router or model code touches SQLite directly — so swapping the static SQLite source for a streaming pipeline means reimplementing that one module, not the callers around it. The model, transaction graph, and knowledge base are all loaded once at startup into shared in-memory caches and only ever read from during request handling, so per-request logic carries no mutable state between calls either.
+
 ## Local Setup
 
 ### Prerequisites
