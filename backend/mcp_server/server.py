@@ -33,9 +33,9 @@ mcp = FastMCP("riftrace")
 def predict_transaction(tx_id: int) -> PredictResponse:
     """Predict whether a Bitcoin transaction is licit or illicit.
 
-    Runs RiftRace's trained Random Forest model (F1=0.81, ROC-AUC=0.94 on
-    the held-out temporal test split) against the transaction's feature
-    vector from the Elliptic dataset.
+    Runs RiftRace's trained Random Forest model -- the sigmoid-calibrated
+    version (F1=0.787, ROC-AUC=0.929 on the held-out temporal test split)
+    -- against the transaction's feature vector from the Elliptic dataset.
 
     Args:
         tx_id: The Elliptic dataset transaction ID to score.

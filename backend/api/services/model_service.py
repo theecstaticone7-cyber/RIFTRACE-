@@ -8,9 +8,10 @@ to hold a ~272MB DataFrame resident for the life of the process just to
 support tx_id lookups.
 
 Random Forest is the best-performing model from the Phase 1/Phase 2
-evaluation (F1=0.81, ROC-AUC=0.94 on the temporal test split), so it's what
-/predict and /stats serve. Swapping the served model later only means
-changing MODEL_PATH/MODEL_NAME here, not the router code.
+evaluation, so it's what /predict and /stats serve. The served model is the
+sigmoid-calibrated version (see models/calibrate_model.py): F1=0.787,
+ROC-AUC=0.929 on the temporal test split. Swapping the served model later
+only means changing MODEL_PATH/MODEL_NAME here, not the router code.
 """
 
 import json
